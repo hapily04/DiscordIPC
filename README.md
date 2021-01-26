@@ -1,3 +1,5 @@
+# Not: Bu DiscordIPC sürümü resimi değildir ve Discord'dan BANLANABİLİRSİNİZ. Dikkatle kullanın.
+
 [version]: https://api.bintray.com/packages/jagrosh/maven/DiscordIPC/images/download.svg
 [download]: https://bintray.com/jagrosh/maven/DiscordIPC/_latestVersion
 [license]: https://img.shields.io/badge/License-Apache%202.0-lightgrey.svg
