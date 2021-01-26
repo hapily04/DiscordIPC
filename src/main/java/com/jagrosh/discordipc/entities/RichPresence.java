@@ -16,6 +16,9 @@
 package com.jagrosh.discordipc.entities;
 
 import java.time.OffsetDateTime;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -43,11 +46,12 @@ public class RichPresence
     private final String joinSecret;
     private final String spectateSecret;
     private final boolean instance;
+    private final Map<String, String> buttons;
     
     public RichPresence(String state, String details, OffsetDateTime startTimestamp, OffsetDateTime endTimestamp, 
             String largeImageKey, String largeImageText, String smallImageKey, String smallImageText, 
             String partyId, int partySize, int partyMax, String matchSecret, String joinSecret, 
-            String spectateSecret, boolean instance)
+            String spectateSecret, boolean instance, Map<String, String> buttons)
     {
         this.state = state;
         this.details = details;
@@ -64,6 +68,7 @@ public class RichPresence
         this.joinSecret = joinSecret;
         this.spectateSecret = spectateSecret;
         this.instance = instance;
+        this.buttons = buttons;
     }
 
     /**
@@ -91,11 +96,19 @@ public class RichPresence
                 .put("party", partyId==null ? null : new JSONObject()
                         .put("id", partyId)
                         .put("size", new JSONArray().put(partySize).put(partyMax)))
-                .put("secrets", new JSONObject()
-                        .put("join", joinSecret)
-                        .put("spectate", spectateSecret)
-                        .put("match", matchSecret))
+                .put("buttons", buildButtons())
                 .put("instance", instance);
+    }
+
+    private JSONArray buildButtons() {
+        JSONArray a = new JSONArray();
+        for(Map.Entry<String, String> e : buttons.entrySet()) {
+            a.put(new JSONObject()
+                    .put("label", e.getKey())
+                    .put("url", e.getValue())
+            );
+        }
+        return a;
     }
 
     /**
@@ -106,6 +119,7 @@ public class RichPresence
      */
     public static class Builder
     {
+        private final HashMap<String, String> buttons = new HashMap<>();
         private String state;
         private String details;
         private OffsetDateTime startTimestamp;
@@ -132,7 +146,12 @@ public class RichPresence
             return new RichPresence(state, details, startTimestamp, endTimestamp, 
                     largeImageKey, largeImageText, smallImageKey, smallImageText, 
                     partyId, partySize, partyMax, matchSecret, joinSecret, 
-                    spectateSecret, instance);
+                    spectateSecret, instance, buttons);
+        }
+
+        public Builder addButton(String name, String url) {
+            buttons.put(name, url);
+            return this;
         }
 
         /**
