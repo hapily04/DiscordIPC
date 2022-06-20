@@ -108,6 +108,7 @@ public class RichPresence
                     .put("url", e.getValue())
             );
         }
+        System.out.println(a.length());
         if(a.length() == 0) {
             return null;
         }
