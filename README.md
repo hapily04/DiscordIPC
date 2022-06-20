@@ -1,4 +1,6 @@
-# Not: Bu DiscordIPC sürümü resimi değildir ve Discord'dan BANLANABİLİRSİNİZ. Dikkatle kullanın.
+# What's changed with this fork?
+
+This fork fixes an issue with [Thunderstorm010's fork](https://github.com/thunderstorm010/DiscordIPC) where an empty button array is passed in if no buttons are present, resulting in no rich presence being shown. (TLDR: You are no longer required to have buttons added in order for your rich presence to show.)
 
 [version]: https://api.bintray.com/packages/jagrosh/maven/DiscordIPC/images/download.svg
 [download]: https://bintray.com/jagrosh/maven/DiscordIPC/_latestVersion
@@ -25,26 +27,26 @@ Connect locally to the Discord client using IPC for a subset of RPC features lik
 First you'll need to add this project as a dependency. If you're using maven:
 ```xml
   <dependency>
-    <groupId>com.jagrosh</groupId>
+    <groupId>com.github.hapily04</groupId>
     <artifactId>DiscordIPC</artifactId>
-    <version>LATEST</version>
+    <version>3389be879d</version>
   </dependency>
 ```
 ```xml
   <repository>
-    <id>central</id>
-    <name>bintray</name>
-    <url>http://jcenter.bintray.com</url>
+    <id>jitpack.io</id>
+    <url>https://jitpack.io</url>
   </repository>
 ```
 With gradle:
 ```groovy
 dependencies {
-    compile 'com.jagrosh:DiscordIPC:LATEST'
+  implementation 'com.github.hapily04:DiscordIPC:3389be879d'
 }
 
 repositories {
-    jcenter()
+  ...
+  maven { url 'https://jitpack.io' }
 }
 ```
 
